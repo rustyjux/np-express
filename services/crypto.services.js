@@ -1,11 +1,11 @@
 const FetchApi = require("./fetch");
 require('dotenv').config();
-const testKey = process.env.NPAPIKEY;
+const npkey = process.env.NPAPIKEY;
 
 const cryptoApi = async (amount) => {
   try {
     const result = await FetchApi(
-      "https://catfact.ninja/fact"
+      `https://api.nordic-pulse.com/v3/ski-areas/BC-BlackJack/full-report?apiKey=${npkey}`
     );
     // return result.slice(0, amount);
     return result;
