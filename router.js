@@ -4,7 +4,7 @@ const { cryptoController } = require("./controllers/crypto.controllers");
 const { cryptoCacheMiddleware } = require("./middleware/crypto.cache");
 
 router.get("/", (req, res) => {
-  res.send("Cache Project Home Page");
+  res.send("Cache Project Home Page - new");
   res.status(200);
 });
 router.get("/crypto", cryptoCacheMiddleware, cryptoController);
