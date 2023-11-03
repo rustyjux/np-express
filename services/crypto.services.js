@@ -1,4 +1,6 @@
 const FetchApi = require("./fetch");
+require('dotenv').config();
+const testKey = process.env.NPAPIKEY;
 
 const cryptoApi = async (amount) => {
   try {
