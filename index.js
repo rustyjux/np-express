@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const router = require("./router");
+const { captureScreenshot } = require("./screenshot");
+
 const App = express();
 const Port = 8000; // Our server port
 
