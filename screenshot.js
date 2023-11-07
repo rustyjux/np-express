@@ -5,24 +5,25 @@ async function captureScreenshot(url, darkMode) {
         // Capture the screenshot
         const browser = await puppeteer.launch({headless:"new"});
         const page = await browser.newPage();
-        const timeout = 5000;
+        const timeout = 10000;
         await page.goto(url);
         await page.setViewport({width: 2160, height: 1920});
         await waitTillHTMLRendered(page)
         if (darkMode === 'true') {
+            console.log('Capturing dark mode')
             {
                 const targetPage = page;
                 await puppeteer.Locator.race([
-                    targetPage.locator('div.map-settings span'),
-                    targetPage.locator('::-p-xpath(/html/body/app-root/div/app-ski-area/div/div/div/npl-map-libre/div/div/div[3]/button/span)'),
-                    targetPage.locator(':scope >>> div.map-settings span')
+                    targetPage.locator('div.map-settings > button'),
+                    targetPage.locator('::-p-xpath(/html/body/app-root/div/app-ski-area/div/div/div/npl-map-libre/div/div/div[3]/button)'),
+                    targetPage.locator(':scope >>> div.map-settings > button')
                 ])
                     .setTimeout(timeout)
                     .click({
-                    offset: {
-                        x: 16,
-                        y: 5.5,
-                    },
+                      offset: {
+                        x: 15,
+                        y: 14,
+                      },
                     });
             }
             {
@@ -34,10 +35,10 @@ async function captureScreenshot(url, darkMode) {
                 ])
                     .setTimeout(timeout)
                     .click({
-                    offset: {
-                        x: 39,
-                        y: 34,
-                    },
+                      offset: {
+                        x: 31,
+                        y: 28,
+                      },
                     });
             }
             {
@@ -49,10 +50,10 @@ async function captureScreenshot(url, darkMode) {
                 ])
                     .setTimeout(timeout)
                     .click({
-                    offset: {
-                        x: 8,
-                        y: 10,
-                    },
+                      offset: {
+                        x: 13,
+                        y: 15,
+                      },
                     });
             }
             await delay(2000);
@@ -61,6 +62,7 @@ async function captureScreenshot(url, darkMode) {
         const map = await page.$('body > app-root > div > app-ski-area > div > div > div');
         const screenshot = await map.screenshot();
         await browser.close();
+        console.log('Returning screenshot')
         return screenshot;
     } catch (error) {
         console.error('Error capturing screenshot:', error);
