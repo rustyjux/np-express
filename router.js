@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const router = Router();
-const { cryptoController } = require("./controllers/crypto.controllers");
-const { cryptoCacheMiddleware } = require("./middleware/crypto.cache");
+const { reportController } = require("./controllers/report.controllers");
+const { reportCacheMiddleware } = require("./middleware/report.cache");
 const { captureScreenshot } = require("./screenshot"); 
 
 
@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
   res.send("Cache Project Home Page - new");
   res.status(200);
 });
-router.get("/crypto", cryptoCacheMiddleware, cryptoController);
+router.get("/report", reportCacheMiddleware, reportController);
 
 router.get("/capture-screenshot", async (req, res) => {
     try {

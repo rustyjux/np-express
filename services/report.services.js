@@ -2,7 +2,7 @@ const FetchApi = require("./fetch");
 require('dotenv').config();
 const npkey = process.env.NPAPIKEY;
 
-const cryptoApi = async (amount) => {
+const reportApi = async (amount) => {
   try {
     const result = await FetchApi(
       `https://api.nordic-pulse.com/v3/ski-areas/BC-BlackJack/full-report?apiKey=${npkey}`
@@ -16,5 +16,5 @@ const cryptoApi = async (amount) => {
 };
 
 module.exports = {
-  cryptoApi,
+  reportApi,
 };
