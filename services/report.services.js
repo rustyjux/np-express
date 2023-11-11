@@ -7,6 +7,7 @@ const reportApi = async (amount) => {
     const result = await FetchApi(
       `https://api.nordic-pulse.com/v3/ski-areas/BC-BlackJack/full-report?apiKey=${npkey}`
     );
+    console.log('New report data fetched')
     // return result.slice(0, amount);
     return result;
   } catch (err) {
