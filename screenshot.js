@@ -20,38 +20,42 @@ async function captureScreenshot(url, darkMode) {
         const page = await browser.newPage();
         const timeout = 10000;
         await page.goto(url);
-        await page.setViewport({width: 2160, height: 1920});
+        // await page.setViewport({width: 2160, height: 1920});
+        await page.setViewport({ width: 1080, height: 1024 });
+
         await waitTillHTMLRendered(page)
         console.log(`Capturing screenshot - dark mode? ${darkMode}`)
-        if (darkMode === 'true') {
+        if (url.includes("nordic-pulse.com")) {
+          console.log("The URL contains 'nordic-pulse.com'");
+          if (darkMode === 'true') {
             {
-                const targetPage = page;
-                await puppeteer.Locator.race([
-                    targetPage.locator('div.map-settings > button'),
-                    targetPage.locator('::-p-xpath(/html/body/app-root/div/app-ski-area/div/div/div/npl-map-libre/div/div/div[3]/button)'),
-                    targetPage.locator(':scope >>> div.map-settings > button')
-                ])
-                    .setTimeout(timeout)
-                    .click({
-                      offset: {
-                        x: 15,
-                        y: 14,
-                      },
-                    });
+              const targetPage = page;
+              await puppeteer.Locator.race([
+                targetPage.locator('div.map-settings > button'),
+                targetPage.locator('::-p-xpath(/html/body/app-root/div/app-ski-area/div/div/div/npl-map-libre/div/div/div[3]/button)'),
+                targetPage.locator(':scope >>> div.map-settings > button')
+              ])
+              .setTimeout(timeout)
+              .click({
+                offset: {
+                  x: 15,
+                  y: 14,
+                },
+              });
             }
             {
-                const targetPage = page;
-                await puppeteer.Locator.race([
-                    targetPage.locator('::-p-aria(Dark) >>>> ::-p-aria([role=\\"image\\"])'),
-                    targetPage.locator('button:nth-of-type(2) > ion-img >>>> img'),
-                    targetPage.locator(':scope >>> button:nth-of-type(2) > ion-img >>>> :scope >>> img')
-                ])
-                    .setTimeout(timeout)
-                    .click({
-                      offset: {
-                        x: 31,
-                        y: 28,
-                      },
+              const targetPage = page;
+              await puppeteer.Locator.race([
+                targetPage.locator('::-p-aria(Dark) >>>> ::-p-aria([role=\\"image\\"])'),
+                targetPage.locator('button:nth-of-type(2) > ion-img >>>> img'),
+                targetPage.locator(':scope >>> button:nth-of-type(2) > ion-img >>>> :scope >>> img')
+              ])
+              .setTimeout(timeout)
+              .click({
+                offset: {
+                  x: 31,
+                  y: 28,
+                },
                     });
             }
             {
@@ -61,23 +65,28 @@ async function captureScreenshot(url, darkMode) {
                     targetPage.locator('::-p-xpath(/html/body/app-root/div/app-ski-area/div/div/div/npl-map-libre/div/div/div[3]/div/span)'),
                     targetPage.locator(':scope >>> div.map-settings > div > span')
                 ])
-                    .setTimeout(timeout)
-                    .click({
-                      offset: {
-                        x: 13,
-                        y: 15,
-                      },
-                    });
+                .setTimeout(timeout)
+                .click({
+                  offset: {
+                    x: 13,
+                    y: 15,
+                  },
+                });
+              }
+              await delay(2000);
             }
-            await delay(2000);
-        }
-        
-        const map = await page.$('body > app-root > div > app-ski-area > div > div > div');
-        const screenshot = await map.screenshot();
-        await browser.close();
-        console.log('Returning screenshot')
-        return screenshot;
-    } catch (error) {
+            
+            const map = await page.$('body > app-root > div > app-ski-area > div > div > div');
+            const target = map
+          } else {
+              console.log("The URL does not contain 'nordic-pulse.com'");
+              const target = page
+          }
+            const screenshot = await target.screenshot();
+            await browser.close();
+            console.log('Returning screenshot')
+            return screenshot;
+          } catch (error) {
         console.error('Error capturing screenshot:', error);
         throw error;
     } finally {
