@@ -1,7 +1,20 @@
 const puppeteer = require('puppeteer');
+require("dotenv").config();
 
 async function captureScreenshot(url, darkMode) {
-    const browser = await puppeteer.launch({headless:"new"});
+    const browser = await puppeteer.launch({
+      args: [
+        "--disable-setuid-sandbox",
+        "--no-sandbox",
+        "--single-process",
+        "--no-zygote",
+      ],
+      executablePath: 
+        process.env.NODE_ENV === "production"
+        ? process.env.PUPPETEER_EXECUTABLE_PATH
+        : puppeteer.executablePath(),
+      headless:"new"
+    });
     try {
         // Capture the screenshot
         const page = await browser.newPage();
