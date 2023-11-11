@@ -1,9 +1,9 @@
 const puppeteer = require('puppeteer');
 
 async function captureScreenshot(url, darkMode) {
+    const browser = await puppeteer.launch({headless:"new"});
     try {
         // Capture the screenshot
-        const browser = await puppeteer.launch({headless:"new"});
         const page = await browser.newPage();
         const timeout = 10000;
         await page.goto(url);
@@ -67,6 +67,8 @@ async function captureScreenshot(url, darkMode) {
     } catch (error) {
         console.error('Error capturing screenshot:', error);
         throw error;
+    } finally {
+      await browser.close();
     }
 }
 
