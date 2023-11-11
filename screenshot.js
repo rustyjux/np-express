@@ -13,7 +13,7 @@ async function captureScreenshot(url, darkMode) {
         process.env.NODE_ENV === "production"
         ? process.env.PUPPETEER_EXECUTABLE_PATH
         : puppeteer.executablePath(),
-      headless:"new"
+      headless: true
     });
     try {
         // Capture the screenshot
