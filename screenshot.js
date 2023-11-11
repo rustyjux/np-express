@@ -22,8 +22,8 @@ async function captureScreenshot(url, darkMode) {
         await page.goto(url);
         // await page.setViewport({width: 2160, height: 1920});
         await page.setViewport({ width: 1080, height: 1024 });
-
-        await waitTillHTMLRendered(page)
+        console.log('Loading page');
+        await waitTillHTMLRendered(page);
         console.log(`Capturing screenshot - dark mode? ${darkMode}`)
         if (url.includes("nordic-pulse.com")) {
           console.log("The URL contains 'nordic-pulse.com'");
@@ -77,7 +77,7 @@ async function captureScreenshot(url, darkMode) {
             }
             
             const map = await page.$('body > app-root > div > app-ski-area > div > div > div');
-            const target = map
+            const target = map;
           } else {
               console.log("The URL does not contain 'nordic-pulse.com'");
               const target = page
