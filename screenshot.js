@@ -6,7 +6,6 @@ async function captureScreenshot(url, darkMode) {
       args: [
         "--disable-setuid-sandbox",
         "--no-sandbox",
-        "--single-process",
         "--no-zygote",
       ],
       executablePath: 
