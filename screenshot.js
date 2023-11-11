@@ -6,6 +6,7 @@ async function captureScreenshot(url, darkMode) {
       args: [
         "--disable-setuid-sandbox",
         "--no-sandbox",
+        "--single-process"
         "--no-zygote",
       ],
       executablePath: 
@@ -21,8 +22,8 @@ async function captureScreenshot(url, darkMode) {
         await page.goto(url);
         await page.setViewport({width: 2160, height: 1920});
         await waitTillHTMLRendered(page)
+        console.log(`Capturing screenshot - dark mode? ${darkMode}`)
         if (darkMode === 'true') {
-            console.log('Capturing dark mode')
             {
                 const targetPage = page;
                 await puppeteer.Locator.race([
