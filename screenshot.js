@@ -19,7 +19,7 @@ async function captureScreenshot(url, darkMode) {
         // Capture the screenshot
         const page = await browser.newPage();
         page.setDefaultNavigationTimeout(0); // TODO - set high but not unlimited
-        const timeout = 20000;
+        const timeout = 0; // TODO - set high but not unlimited
         console.log('Loading page')
         await page.goto(url, {timeout: 0}); // TODO - set high but not unlimited
         await page.setViewport({width: 2160, height: 1920});
