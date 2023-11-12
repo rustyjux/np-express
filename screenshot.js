@@ -20,7 +20,7 @@ async function captureScreenshot(url, darkMode) {
         const page = await browser.newPage();
         const timeout = 20000;
         console.log('Loading page')
-        await page.goto(url);
+        await page.goto(url, {timeout: 0});
         await page.setViewport({width: 2160, height: 1920});
         console.log('Waiting for page to load')
         await waitTillHTMLRendered(page)
