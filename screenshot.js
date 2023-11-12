@@ -1,9 +1,12 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 
 async function captureScreenshot(url, darkMode) {
     try {
         // Capture the screenshot
-        const browser = await puppeteer.launch({headless:"new"});
+        const browser = await puppeteer.launch({
+          executablePath: "chromium-browser",
+          headless:"new"
+        });
         const page = await browser.newPage();
         const timeout = 10000;
         await page.goto(url);
