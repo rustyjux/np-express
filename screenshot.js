@@ -18,9 +18,10 @@ async function captureScreenshot(url, darkMode) {
     try {
         // Capture the screenshot
         const page = await browser.newPage();
+        page.setDefaultNavigationTimeout(0); // TODO - set high but not unlimited
         const timeout = 20000;
         console.log('Loading page')
-        await page.goto(url, {timeout: 0});
+        await page.goto(url, {timeout: 0}); // TODO - set high but not unlimited
         await page.setViewport({width: 2160, height: 1920});
         console.log('Waiting for page to load')
         await waitTillHTMLRendered(page)
@@ -87,7 +88,7 @@ async function captureScreenshot(url, darkMode) {
     }
 }
 
-const waitTillHTMLRendered = async (page, timeout = 60000) => {
+const waitTillHTMLRendered = async (page, timeout = 120000) => { // TODO - figure out acceptable timeout
     const checkDurationMsecs = 1000;
     const maxChecks = timeout / checkDurationMsecs;
     let lastHTMLSize = 0;
