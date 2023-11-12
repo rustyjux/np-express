@@ -8,9 +8,11 @@ async function captureScreenshot(url, darkMode) {
           headless:"new"
         });
         const page = await browser.newPage();
-        const timeout = 10000;
+        const timeout = 20000;
+        console.log('Opening page')
         await page.goto(url);
         await page.setViewport({width: 2160, height: 1920});
+        console.log('Waiting for page to load fully')
         await waitTillHTMLRendered(page)
         if (darkMode === 'true') {
             console.log('Capturing dark mode')
@@ -61,7 +63,7 @@ async function captureScreenshot(url, darkMode) {
             }
             await delay(2000);
         }
-        
+        console.log('Capturing screenshot')
         const map = await page.$('body > app-root > div > app-ski-area > div > div > div');
         const screenshot = await map.screenshot();
         await browser.close();
@@ -73,7 +75,7 @@ async function captureScreenshot(url, darkMode) {
     }
 }
 
-const waitTillHTMLRendered = async (page, timeout = 30000) => {
+const waitTillHTMLRendered = async (page, timeout = 60000) => {
     const checkDurationMsecs = 1000;
     const maxChecks = timeout / checkDurationMsecs;
     let lastHTMLSize = 0;
